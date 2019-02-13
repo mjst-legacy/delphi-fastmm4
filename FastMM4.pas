@@ -1444,7 +1444,7 @@ procedure LogReleaseStackUsage;
 const
   {The stack trace depth. (Must be an *uneven* number to ensure that the
    Align16Bytes option works in FullDebugMode.)}
-  StackTraceDepth = 11;
+  StackTraceDepth = 31;
 
 type
   PStackTrace = ^TStackTrace;
