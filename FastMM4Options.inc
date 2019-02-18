@@ -345,102 +345,20 @@ Set the default options for FastMM here.
   {.$undef UseOutputDebugString}
 {$else}
   {Specify the options you use for debugging below}
-
-  {Set this option when you use runtime packages in this application or library.
-   This will automatically set the "AssumeMultiThreaded" option. Note that you
-   have to ensure that FastMM is finalized after all live pointers have been
-   freed - failure to do so will result in a large leak report followed by a lot
-   of A/Vs. (See the FAQ for more detail.) You may have to combine this option
-   with the NeverUninstall option.}
   {$define UseRuntimePackages} // company: we use runtime-packages
-
-  {Enable this option to suppress the generation of debug info for the
-   FastMM4.pas unit. This will prevent the integrated debugger from stepping into
-   the memory manager code.}
   {$define NoDebugInfo} // company: too much stepping into fastMM-code
-
-  {Set this option to use the Windows API OutputDebugString procedure to output
-   debug strings on startup/shutdown and when errors occur.}
   {$define UseOutputDebugString} // company: see, when fastMM loads/unloads
-
-  {FastMM always catches attempts to free the same memory block twice, however it
-   can also check for corruption of the memory heap (typically due to the user
-   program overwriting the bounds of allocated memory). These checks are
-   expensive, and this option should thus only be used for debugging purposes.
-   If this option is set then the ASMVersion option is automatically disabled.}
   {$define CheckHeapForCorruption} // mine: helps detecting usage of free objects!
-
-  {Enable this option to catch attempts to perform MM operations after FastMM has
-   been uninstalled. With this option set when FastMM is uninstalled it will not
-   install the previous MM, but instead a dummy MM handler that throws an error
-   if any MM operation is attempted. This will catch attempts to use the MM
-   after FastMM has been uninstalled.}
   {$undef DetectMMOperationsAfterUninstall} // to test!
-
-  {Set the following option to do extensive checking of all memory blocks. All
-   blocks are padded with both a header and trailer that are used to verify the
-   integrity of the heap. Freed blocks are also cleared to to ensure that they
-   cannot be reused after being freed. This option slows down memory operations
-   dramatically and should only be used to debug an application that is
-   overwriting memory or reusing freed pointers. Setting this option
-   automatically enables CheckHeapForCorruption and disables ASMVersion.
-   Very important: If you enable this option your application will require the
-   FastMM_FullDebugMode.dll library. If this library is not available you will
-   get an error on startup.}
   {$define FullDebugMode} // mine: use fullDebug
-
-  {Set this option to perform "raw" stack traces, i.e. check all entries on the
-   stack for valid return addresses. Note that this is significantly slower
-   than using the stack frame tracing method, but is usually more complete. Has
-   no effect unless FullDebugMode is enabled}
   {$undef RawStackTraces} // mine: too slow (to test!)
-
-  {Set this option to check for user code that uses an interface of a freed
-   object. Note that this will disable the checking of blocks modified after
-   being freed (the two are not compatible). This option has no effect if
-   FullDebugMode is not also enabled.}
   {$define CatchUseOfFreedInterfaces} // mine: very useful!
-
-  {Deletes the error log file on startup. No effect if LogErrorsToFile is not
-   also set.}
   {$define ClearLogFileOnStartup} // mine: need fresh log-start
-
-  {Disables the logging of memory dumps together with the other detail for
-   memory errors.}
   {$define DisableLoggingOfMemoryDumps} // mine: too cluttered, not neccessary in our context
-
-  {Set this option to require the presence of the Delphi IDE to report memory
-   leaks. This option has no effect if the option "EnableMemoryLeakReporting"
-   is not also set.}
   {$define RequireIDEPresenceForLeakReporting} // mine: no need for leakreporting for standalone application
-
-  {Set this option to enable the use of MMX instructions. Disabling this option
-   will result in a slight performance hit, but will enable compatibility with
-   AMD K5, Pentium I and earlier CPUs. MMX is currently only used in the variable
-   size move routines, so if UseCustomVariableSizeMoveRoutines is not set then
-   this option has no effect.}
   {$define EnableMMX} // company: no need for not using MMX
-
-  {Allow sharing of the memory manager between a main application and DLLs that
-   were also compiled with FastMM. This allows you to pass dynamic arrays and
-   long strings to DLL functions provided both are compiled to use FastMM.
-   Sharing will only work if the library that is supposed to share the memory
-   manager was compiled with the "AttemptToUseSharedMM" option set. Note that if
-   the main application is single threaded and the DLL is multi-threaded that you
-   have to set the IsMultiThread variable in the main application to true or it
-   will crash when a thread contention occurs. Note that statically linked DLL
-   files are initialized before the main application, so the main application may
-   well end up sharing a statically loaded DLL's memory manager and not the other
-   way around. }
   {$define ShareMM} // company
-
-  {Define this to attempt to share the MM of the main application or other loaded
-   DLLs in the same process that were compiled with ShareMM set. When sharing a
-   memory manager, memory leaks caused by the sharer will not be freed
-   automatically. Take into account that statically linked DLLs are initialized
-   before the main application, so set the sharing options accordingly.}
   {$define AttemptToUseSharedMM} // company
-
 {$endif}
 
 {--------------------Compilation Options For borlndmm.dll---------------------}
