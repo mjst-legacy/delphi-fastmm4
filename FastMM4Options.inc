@@ -345,20 +345,15 @@ Set the default options for FastMM here.
   {.$undef UseOutputDebugString}
 {$else}
   {Specify the options you use for debugging below}
-  {$define UseRuntimePackages} // company: we use runtime-packages
-  {$define NoDebugInfo} // company: too much stepping into fastMM-code
-  {$define UseOutputDebugString} // company: see, when fastMM loads/unloads
-  {$define CheckHeapForCorruption} // mine: helps detecting usage of free objects!
-  {$undef DetectMMOperationsAfterUninstall} // to test!
-  {$define FullDebugMode} // mine: use fullDebug
-  {$undef RawStackTraces} // mine: too slow (to test!)
-  {$define CatchUseOfFreedInterfaces} // mine: very useful!
-  {$define ClearLogFileOnStartup} // mine: need fresh log-start
-  {$define DisableLoggingOfMemoryDumps} // mine: too cluttered, not neccessary in our context
-  {$define RequireIDEPresenceForLeakReporting} // mine: no need for leakreporting for standalone application
-  {$define EnableMMX} // company: no need for not using MMX
-  {$define ShareMM} // company
-  {$define AttemptToUseSharedMM} // company
+  {$define UseRuntimePackages} // needed for runtime-packages
+  {$define ShareMM} // needed for runtime-packages
+  {$define AttemptToUseSharedMM} // needed for runtime-packages
+  {$define EnableMMX} // no need for NOT using MMX
+  {$define NoDebugInfo} // prevent too much stepping into fastMM-code
+  {$define UseOutputDebugString} // see in ODS, when fastMM loads/unloads
+  {$undef DetectMMOperationsAfterUninstall} // detection not required in our context
+  // user defined FastMM options, if required
+  {$I FastMM4Options_Debug_Custom.inc}
 {$endif}
 
 {--------------------Compilation Options For borlndmm.dll---------------------}
