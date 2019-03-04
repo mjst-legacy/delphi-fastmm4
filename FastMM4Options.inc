@@ -342,9 +342,15 @@ Set the default options for FastMM here.
   {.$undef UseOutputDebugString}
 {$else}
   {Specify the options you use for debugging below}
-  {.$define FullDebugMode}
-  {.$define EnableMemoryLeakReporting}
-  {.$define UseOutputDebugString}
+  {$define UseRuntimePackages} // needed for runtime-packages
+  {$define ShareMM} // needed for runtime-packages
+  {$define AttemptToUseSharedMM} // needed for runtime-packages
+  {$define EnableMMX} // require MMX usage
+  {$define NoDebugInfo} // prevent stepping into fastMM-code
+  {$define UseOutputDebugString} // see in ODS, when fastMM loads/unloads
+  {$undef DetectMMOperationsAfterUninstall} // detection not really useful
+  // user defined FastMM options, if required
+  {$I FastMM4Options_Debug_Custom.inc}
 {$endif}
 
 {--------------------Compilation Options For borlndmm.dll---------------------}
