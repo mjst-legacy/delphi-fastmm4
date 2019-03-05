@@ -345,10 +345,11 @@ Set the default options for FastMM here.
   {$define UseRuntimePackages} // needed for runtime-packages
   {$define ShareMM} // needed for runtime-packages
   {$define AttemptToUseSharedMM} // needed for runtime-packages
+  {$undef EnableBackwardCompatibleMMSharing} // no backward compatible mm sharing!
   {$define EnableMMX} // require MMX usage
   {$define NoDebugInfo} // prevent stepping into fastMM-code
-  {$define UseOutputDebugString} // see in ODS, when fastMM loads/unloads
-  {$undef DetectMMOperationsAfterUninstall} // detection not really useful
+//  {$define UseOutputDebugString} // see in ODS, when fastMM loads/unloads
+//  {$undef DetectMMOperationsAfterUninstall} // disable, if this causes too much problems
   // user defined FastMM options, if required
   {$I FastMM4Options_Debug_Custom.inc}
 {$endif}
